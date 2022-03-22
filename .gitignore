@@ -1,0 +1,11 @@
+/tiny-raft-kv.iml
+/kv-rpc/target
+/kv-raft/target
+/kv-common/target
+/.idea/workspace.xml
+/.idea/vcs.xml
+/.idea/uiDesigner.xml
+/.idea/misc.xml
+/.idea/encodings.xml
+/.idea/compiler.xml
+/.idea/.name
