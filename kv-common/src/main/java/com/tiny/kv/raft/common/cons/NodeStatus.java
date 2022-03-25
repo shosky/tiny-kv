@@ -41,5 +41,21 @@ public interface NodeStatus {
             return null;
         }
 
+        public static String code2Text(int code) {
+            String text = null;
+            switch (code) {
+                case 0:
+                    text = "追随者";
+                    break;
+                case 1:
+                    text = "候选者";
+                    break;
+                case 2:
+                    text = "领袖";
+                    break;
+            }
+            return text;
+        }
+
     }
 }

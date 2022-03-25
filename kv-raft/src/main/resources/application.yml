@@ -3,5 +3,6 @@ rpc:
     servicePort: ${SERVICE_PORT}
     registryType: ZOOKEEPER
     registryAddr: 127.0.0.1:2181
+    instanceAddr: ${INSTANCE_ADDR}
 server:
   port: ${SERVER_PORT}

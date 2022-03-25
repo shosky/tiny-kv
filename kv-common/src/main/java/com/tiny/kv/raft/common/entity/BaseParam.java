@@ -1,7 +1,11 @@
 package com.tiny.kv.raft.common.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +14,9 @@ import java.io.Serializable;
  * @description: 基础请求参数Class
  **/
 @Data
-@Builder
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BaseParam implements Serializable {
 
     /* 候选人的任期号 */

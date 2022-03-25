@@ -1,6 +1,8 @@
 package com.tiny.kv.raft.common.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -10,6 +12,8 @@ import lombok.experimental.SuperBuilder;
  **/
 @Data
 @SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RvoteParam extends BaseParam {
 
     //请求选票的候选人的 ID(ip:selfPort)
