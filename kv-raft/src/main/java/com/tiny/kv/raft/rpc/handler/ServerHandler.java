@@ -1,6 +1,7 @@
 package com.tiny.kv.raft.rpc.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.tiny.kv.raft.common.config.Peer;
 import com.tiny.kv.raft.common.entity.*;
 import com.tiny.kv.raft.core.impl.DefaultNode;
 import io.netty.channel.ChannelHandlerContext;
@@ -26,16 +27,31 @@ public class ServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         log.info(JSON.toJSONString(msg));
         RpcResponse response = new RpcResponse();
         response.setRequestId(msg.getRequestId());
-        if (msg.getCmd() == RpcRequest.R_VOTE) {
-            RvoteResult rvoteResult = node.handlerRequestVote(JSON.parseObject(JSON.toJSONString(msg.getObj()), RvoteParam.class));
-            response.setResult(rvoteResult);
-        } else if (msg.getCmd() == RpcRequest.A_ENTEIES) {
-            AentryResult aentryResult = node.handlerAppendEntries(JSON.parseObject(JSON.toJSONString(msg.getObj()), AentryParam.class));
-            response.setResult(aentryResult);
-        } else if (msg.getCmd() == RpcRequest.CLIENT_REQ) {
-            //客户端请求
-            ClientKVAck clientKVAck = node.handlerClientRequest(JSON.parseObject(JSON.toJSONString(msg.getObj()), ClientKVReq.class));
-            response.setResult(clientKVAck);
+        switch (msg.getCmd()) {
+            case RpcRequest.R_VOTE:
+                RvoteResult rvoteResult = node.handlerRequestVote(JSON.parseObject(JSON.toJSONString(msg.getObj()), RvoteParam.class));
+                response.setResult(rvoteResult);
+                break;
+            case RpcRequest.A_ENTEIES:
+                AentryResult aentryResult = node.handlerAppendEntries(JSON.parseObject(JSON.toJSONString(msg.getObj()), AentryParam.class));
+                response.setResult(aentryResult);
+                break;
+            case RpcRequest.CLIENT_REQ:
+                //客户端请求
+                ClientKVAck clientKVAck = node.handlerClientRequest(JSON.parseObject(JSON.toJSONString(msg.getObj()), ClientKVReq.class));
+                response.setResult(clientKVAck);
+                break;
+            case RpcRequest.CHANGE_CONFIG_ADD:
+                MembershipChangeResult addPeerResult = node.addPeer(JSON.parseObject(JSON.toJSONString(msg.getObj()), Peer.class));
+                response.setResult(addPeerResult);
+                break;
+            case RpcRequest.CHANGE_CONFIG_REMOVE:
+                MembershipChangeResult removePeerResult = node.removePeer(JSON.parseObject(JSON.toJSONString(msg.getObj()), Peer.class));
+                response.setResult(removePeerResult);
+                break;
+            default:
+                log.error("未知的请求协议，拒绝处理");
+                throw new RuntimeException("未知的请求协议");
         }
         ctx.writeAndFlush(response);
     }

@@ -2,8 +2,6 @@ package com.tiny.kv.raft;
 
 import com.tiny.kv.raft.common.config.NodeConfig;
 import com.tiny.kv.raft.core.impl.DefaultNode;
-import com.tiny.kv.raft.rpc.client.RpcClient;
-import com.tiny.kv.raft.rpc.server.RpcServer;
 
 import java.util.Arrays;
 

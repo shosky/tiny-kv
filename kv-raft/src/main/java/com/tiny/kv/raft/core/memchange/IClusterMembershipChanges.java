@@ -1,5 +1,8 @@
 package com.tiny.kv.raft.core.memchange;
 
+import com.tiny.kv.raft.common.config.Peer;
+import com.tiny.kv.raft.common.entity.MembershipChangeResult;
+
 /**
  * @author: leo wang
  * @date: 2022-03-21
@@ -13,7 +16,7 @@ public interface IClusterMembershipChanges {
      * @param newPeer
      * @return
      */
-    //Result addPeer(Peer newPeer);
+    MembershipChangeResult addPeer(Peer newPeer);
 
     /**
      * 删除节点
@@ -21,5 +24,5 @@ public interface IClusterMembershipChanges {
      * @param oldPeer
      * @return
      */
-    //Result removePeer(Peer oldPeer);
+    MembershipChangeResult removePeer(Peer oldPeer);
 }

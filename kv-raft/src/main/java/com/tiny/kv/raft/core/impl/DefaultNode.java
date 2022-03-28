@@ -238,6 +238,16 @@ public class DefaultNode implements INode, ILifeCycle, IClusterMembershipChanges
         }
     }
 
+    @Override
+    public MembershipChangeResult addPeer(Peer newPeer) {
+        return delegate.addPeer(newPeer);
+    }
+
+    @Override
+    public MembershipChangeResult removePeer(Peer oldPeer) {
+        return delegate.removePeer(oldPeer);
+    }
+
     /**
      * 静态内部类，调用时才会初始化。
      */
@@ -263,6 +273,9 @@ public class DefaultNode implements INode, ILifeCycle, IClusterMembershipChanges
 
             //实例化一致性对象
             consensus = new DefaultConsensus(this);
+
+            //实例化节点扩缩容实例对象
+            delegate = new ClusterMembershipChangesImpl(this);
 
             //心跳任务,500ms一次(受上一次执行时间影响,如上一次执行未完成,等待上一次执行完成后再等500ms后发送心跳)
             RaftThreadPools.scheduleWithFixedDelay(heartBeatTask, 500);
