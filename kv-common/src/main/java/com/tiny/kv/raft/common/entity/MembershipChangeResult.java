@@ -1,9 +1,6 @@
 package com.tiny.kv.raft.common.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @author: leo wang
@@ -13,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class MembershipChangeResult {
 
     public static final int FAIL = 0;

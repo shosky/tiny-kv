@@ -16,7 +16,7 @@ public class RaftNodeBootstrap {
         startRaft();
     }
 
-    private static void startRaft() throws Throwable {
+    public static void startRaft() throws Throwable {
         //获取Node实例
         DefaultNode node = DefaultNode.getInstance();
 
